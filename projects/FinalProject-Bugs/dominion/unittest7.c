@@ -47,7 +47,13 @@ int main(int argc, char *argv[])
 		
 	/*This section is where the requirements are set*/
 	int q = G.whoseTurn;
-	int w = G.handCount[q];	//current hand size of the player
+	int nextPlayer = q + 1;	//next player
+	
+	if( nextPlayer >= G.numPlayers)	{
+		nextPlayer = 0;
+	}
+	
+	int w = G.discardCount[nextPlayer];
 	
 	r = gainCard( tribute, &G, 2, q);		//player gains 'tribute' to their hand
 	if( r == 1) {
@@ -62,7 +68,7 @@ int main(int argc, char *argv[])
 	
 	
 	/*This section tests the validity of scoreFor()*/
-	if( G.handCount[q] != w && G.handCount[q] != w + 2 && G.handCount[q] != w + 4)	{
+	if( G.discardCount[nextPlayer] != w + 2)	{
 		printf("Error calculating hand addition/substraction\n");
 	}
 
